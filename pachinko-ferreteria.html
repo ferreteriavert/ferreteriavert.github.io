@@ -296,10 +296,15 @@
   #borrar-todo.visible + .estado-google { display: block; }
   .estado-google.ok { color: #3ddc84; }
   .estado-google.mal { color: #ff8a8a; }
+
+  /* Fondo simplificado: sin rejilla animada ni sol (carga y va más ligero) */
+  .fondo-retro { background: radial-gradient(ellipse at 50% 115%, #3a0000 0%, #140000 45%, #000 80%) !important; }
+  .estrellitas { animation: none !important; opacity: .5 !important; }
+  .cabecera, .cabecera-larga { padding-top: 0 !important; }
 </style>
 </head>
 <body>
-<div class="fondo-retro" id="fondo-retro"><div class="estrellitas"></div><div class="suelo"></div><div class="horizonte"></div></div>
+<div class="fondo-retro" id="fondo-retro"><div class="estrellitas"></div></div>
 
 <!-- ================= INICIO ================= -->
 <section class="pantalla activa" id="inicio">
@@ -307,7 +312,7 @@
   <button id="pantalla-completa" aria-label="Pantalla completa">⛶</button>
   <div class="centro">
     <img class="logo logo-inicio" alt="Ferretería Vert, fundada el 1846">
-    <div class="cabecera"><div class="sol"></div><h1 class="titulo-retro">PACHINKO</h1></div>
+    <div class="cabecera"><h1 class="titulo-retro">PACHINKO</h1></div>
     <p class="sub">Aquí manda la <b>suerte</b></p>
     <div class="botones-inicio">
       <button class="boton-inicio" id="empezar">▶ Jugar</button>
