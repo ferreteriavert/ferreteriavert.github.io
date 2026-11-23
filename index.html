@@ -159,6 +159,23 @@
     .juego { padding-top: clamp(8px, 1.4vh, 20px) !important; padding-bottom: clamp(8px, 1.4vh, 20px) !important; }
     .pagina { gap: clamp(8px, 1.6vh, 24px) !important; }
   }
+
+  /* Recuerdo: las fotos ocupan toda la tarjeta (el propio botón) */
+  .juego-recuerdo { position: relative; overflow: hidden; justify-content: flex-end; }
+  .juego-recuerdo .marco-fotos { position: absolute !important; inset: 0; width: auto !important; height: auto !important; max-height: none !important; aspect-ratio: auto !important; z-index: 0; background: #0a0000; }
+  .juego-recuerdo .sin-fotos { inset: 4% 8% auto 8% !important; width: 84% !important; height: 52% !important; }
+  .juego-recuerdo .foto-menu { inset: 0 !important; width: 100% !important; height: 100% !important; border: 0 !important; transform: none !important; object-fit: cover; object-position: 50% 20%; }
+  .juego-recuerdo .info { position: relative; z-index: 1; margin-top: auto; padding-top: 18%; flex: none !important;
+    background: linear-gradient(rgba(10,0,0,0), rgba(10,0,0,.82) 32%, rgba(10,0,0,.95)); }
+  .marco-fotos.con-fotos .sin-fotos { opacity: 0 !important; }
+  .juego-recuerdo .desc { color: #ffd6d6; }
+  @media (orientation: portrait) {
+    .juego-recuerdo .info { flex: 1 1 0 !important; }
+    .juego-recuerdo { flex-direction: column !important; align-items: stretch; min-height: 22vh; }
+    .juego-recuerdo .sin-fotos { inset: 6% auto 6% 3% !important; width: 34% !important; height: 88% !important; }
+    .juego-recuerdo .info { padding-top: 0; margin-left: 38%; width: auto; background: none; }
+    .marco-fotos.con-fotos::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,0,0,0) 25%, rgba(10,0,0,.85) 45%); }
+  }
 </style>
 </head>
 <body>
@@ -273,7 +290,7 @@
       </div>
     </a>
 
-    <a class="juego juego-recuerdo" href="recuerdo.html">
+    <a class="juego juego-recuerdo" href="recuerdo.html#foto">
       <div class="dibujo marco-fotos" id="marco-fotos">
         <svg class="sin-fotos" viewBox="0 0 400 300" aria-hidden="true" shape-rendering="crispEdges">
           <rect x="70" y="80" width="260" height="170" fill="#3a0000"/><rect x="70" y="72" width="260" height="170" fill="#c00000"/>
@@ -484,13 +501,26 @@ const fotosGoogle = (function () {
   const clave = () => window.COPIA_GOOGLE_CLAVE || "ferreteria-vert";
   async function subir(foto) {
     if (!direccion()) throw new Error("sin configurar");
-    const r = await fetch(direccion(), { method: "POST", body: JSON.stringify(Object.assign({ accion: "foto", clave: clave() }, foto)) });
-    const j = await r.json();
-    if (!j || !j.ok) throw new Error((j && j.error) || "respuesta rara");
+    let r;
+    try { r = await fetch(direccion(), { method: "POST", body: JSON.stringify(Object.assign({ accion: "foto", clave: clave() }, foto)) }); }
+    catch (e) { throw apuntar(navigator.onLine === false ? "sin internet" : "Google no responde a la pantalla: suele ser que el script no tiene permisos o no se ha publicado la versión nueva"); }
+    let j;
+    try { j = await r.json(); } catch (e) { throw apuntar("Google ha contestado algo que no es el script (¿falta dar permisos o publicar la versión nueva?)"); }
+    if (!j || !j.ok) throw apuntar("error del script: " + ((j && j.error) || "desconocido"));
+    if (j.enviada === undefined && !j.repetida) throw apuntar("el script de Google es la versión antigua: hay que publicar la versión nueva");
+    try { localStorage.removeItem("fotosUltimoError"); } catch (e) {}
     return j;
+  }
+  function apuntar(txt) { try { localStorage.setItem("fotosUltimoError", new Date().toLocaleString("es-ES") + " · " + txt); } catch (e) {} return new Error(txt); }
+  /* Para que una foto nueva con permiso salga ya en el menú de esta pantalla */
+  function anadirAlMenu(foto) {
+    if (!foto.mostrar || !foto.miniatura) return;
+    const lista = [{ id: foto.id, img: foto.miniatura }].concat(leer(CACHE, []).filter(f => f.id !== foto.id)).slice(0, 12);
+    while (lista.length && !escribir(CACHE, lista)) lista.pop();
   }
   /* Envía una foto; si falla, la deja en cola (máximo 6) para reintentarla */
   async function enviar(foto) {
+    anadirAlMenu(foto);
     try { return await subir(foto); }
     catch (e) {
       let cola = leer(COLA, []).filter(f => f.id !== foto.id);
@@ -503,12 +533,15 @@ const fotosGoogle = (function () {
   async function reintentar() {
     if (ocupado || !direccion() || navigator.onLine === false) return;
     ocupado = true;
+    let subidas = 0;
     try {
       for (const f of leer(COLA, [])) {
         await subir(f);
         escribir(COLA, leer(COLA, []).filter(x => x.id !== f.id));
+        subidas++;
       }
     } catch (e) {}
+    if (subidas) document.dispatchEvent(new CustomEvent("fotos-subidas"));
     ocupado = false;
   }
   /* Fotos para el menú (solo las que tienen permiso para salir en pantalla) */
@@ -517,16 +550,20 @@ const fotosGoogle = (function () {
     try {
       const u = direccion() + (direccion().includes("?") ? "&" : "?") + "accion=fotos&n=" + n + "&clave=" + encodeURIComponent(clave());
       const j = await (await fetch(u)).json();
-      if (j && j.ok) { escribir(CACHE, j.fotos || []); return j.fotos || []; }
+      if (j && j.ok && Array.isArray(j.fotos)) {
+        // las de Google + las de esta pantalla que aún están por subir
+        const pendientes = leer(COLA, []).filter(f => f.mostrar && f.miniatura).map(f => ({ id: f.id, img: f.miniatura }));
+        const todas = pendientes.concat(j.fotos.filter(f => !pendientes.some(x => x.id === f.id)));
+        escribir(CACHE, todas.slice(0, 12)); return todas;
+      }
     } catch (e) {}
     return leer(CACHE, []);
   }
   setTimeout(reintentar, 4000);
   setInterval(reintentar, 90 * 1000);
   window.addEventListener("online", reintentar);
-  return { enviar, reintentar, alAzar, pendientes: () => leer(COLA, []).length, guardadas: () => leer(CACHE, []) };
+  return { enviar, reintentar, alAzar, pendientes: () => leer(COLA, []).length, guardadas: () => leer(CACHE, []), ultimoError: () => { try { return localStorage.getItem("fotosUltimoError") || ""; } catch (e) { return ""; } } };
 })();
-
 /* Fotos de recuerdo al azar en la cuarta tarjeta */
 (function () {
   const marco = document.getElementById("marco-fotos"), imgs = [...marco.querySelectorAll(".foto-menu")];
@@ -550,6 +587,7 @@ const fotosGoogle = (function () {
   siguiente();
   setTimeout(cargar, 2000);
   setInterval(cargar, 5 * 60 * 1000);
+  document.addEventListener("fotos-subidas", cargar);
   setInterval(siguiente, 4500);
 })();
 </script>
