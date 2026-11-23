@@ -5,5 +5,5 @@
    2. La clave tiene que ser la misma que la del Apps Script.
    Si dejas la dirección vacía, los juegos funcionan igual pero sin copia.
    ===================================================== */
-window.COPIA_GOOGLE_URL = "https://script.google.com/macros/s/AKfycbw7fJaWRybLkiFBkYziOtPAg0alfcuNYcE11OhOgaZnc4vW5jhzhZWyQuQi1aFKE9VXIQ/exec";
+window.COPIA_GOOGLE_URL = "https://script.google.com/macros/s/AKfycbzK8nI4ZUCaTHOCJfDnrjNpkmOO1ZAS4wCyJ1KsaZA8W7oCFtdNVnAYxYWD2BEPPydZlw/exec";
 window.COPIA_GOOGLE_CLAVE = "ferreteria-vert";
