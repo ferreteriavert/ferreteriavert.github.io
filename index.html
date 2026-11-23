@@ -130,6 +130,35 @@
   .fondo-retro { background: radial-gradient(ellipse at 50% 115%, #3a0000 0%, #140000 45%, #000 80%) !important; }
   .estrellitas { animation: none !important; opacity: .5 !important; }
   .cabecera, .cabecera-larga { padding-top: 0 !important; }
+
+  /* =====================================================
+     MENÚ LIGERO: sin 3D ni filtros (el volumen va dibujado en el propio borde)
+     ===================================================== */
+  .juegos { perspective: none !important; }
+  .juego { border-style: solid !important; border-radius: 0 !important; background-clip: padding-box !important; filter: none !important; border-width: 8px 8px 32px 8px !important; border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='11' viewBox='0 0 5 11' shape-rendering='crispEdges'%3E%3Crect x='2' y='6' width='1' height='1' fill='%235a0000'/%3E%3Crect x='1' y='7' width='1' height='1' fill='%232a0000'/%3E%3Crect x='2' y='7' width='1' height='1' fill='%235a0000'/%3E%3Crect x='3' y='7' width='1' height='1' fill='%232a0000'/%3E%3Crect x='0' y='8' width='1' height='1' fill='%232a0000'/%3E%3Crect x='1' y='8' width='1' height='1' fill='%232a0000'/%3E%3Crect x='3' y='8' width='1' height='1' fill='%232a0000'/%3E%3Crect x='4' y='8' width='1' height='1' fill='%232a0000'/%3E%3Crect x='1' y='9' width='1' height='1' fill='%232a0000'/%3E%3Crect x='2' y='9' width='1' height='1' fill='%232a0000'/%3E%3Crect x='3' y='9' width='1' height='1' fill='%232a0000'/%3E%3Crect x='2' y='10' width='1' height='1' fill='%232a0000'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='1' y='6' width='1' height='1' fill='%235a0000'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%235a0000'/%3E%3Crect x='0' y='7' width='1' height='1' fill='%232a0000'/%3E%3Crect x='4' y='7' width='1' height='1' fill='%232a0000'/%3E%3Crect x='2' y='8' width='1' height='1' fill='%232a0000'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='0' y='6' width='1' height='1' fill='%232a0000'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%232a0000'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%238a0000'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='0' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%235a0000'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%238a0000'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%238a0000'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%238a0000'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%235a0000'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%235a0000'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='0' y='2' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23ff2020'/%3E%3C/svg%3E") 2 2 8 2 / 8px 8px 32px 8px stretch !important; transform: none !important; transition: none !important; box-shadow: 0 0 3.5vmin rgba(255,0,0,.28) !important; }
+  .juego:active { border-style: solid !important; border-radius: 0 !important; background-clip: padding-box !important; filter: none !important; border-width: 8px 8px 32px 8px !important; border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='11' viewBox='0 0 5 11' shape-rendering='crispEdges'%3E%3Crect x='2' y='4' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%238a0000'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%238a0000'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%238a0000'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%238a0000'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='0' y='2' width='1' height='1' fill='%23ff2020'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23ff2020'/%3E%3C/svg%3E") 2 2 8 2 / 8px 8px 32px 8px stretch !important; transform: translateY(24px) !important; }
+  .jugar { border-style: solid !important; border-radius: 0 !important; background-clip: padding-box !important; filter: none !important; border-width: 8px 8px 16px 8px !important; border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='7' viewBox='0 0 5 7' shape-rendering='crispEdges'%3E%3Crect x='2' y='2' width='1' height='1' fill='%235a0000'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%235a0000'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%235a0000'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%235a0000'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%235a0000'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%235a0000'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='0' y='2' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23ff9a9a'/%3E%3C/svg%3E") 2 2 4 2 / 8px 8px 16px 8px stretch !important; transform: none !important; box-shadow: none !important; }
+  .juego:active .jugar { border-style: solid !important; border-radius: 0 !important; background-clip: padding-box !important; filter: none !important; border-width: 8px 8px 16px 8px !important; border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='7' viewBox='0 0 5 7' shape-rendering='crispEdges'%3E%3Crect x='1' y='3' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23ff2a2a'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='2' y='0' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='0' y='2' width='1' height='1' fill='%23ff9a9a'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%23ff9a9a'/%3E%3C/svg%3E") 2 2 4 2 / 8px 8px 16px 8px stretch !important; transform: translateY(8px) !important; }
+  .titulo { transform: none !important; filter: none !important; background: none !important; color: #ff2a2a !important; -webkit-text-fill-color: #ff2a2a;
+    text-shadow: 0 3px 0 #b00000, 0 6px 0 #700000, 0 9px 0 #3a0000, 0 0 .35em rgba(255,0,0,.45) !important; }
+  .logo { filter: none !important; }
+  .record { filter: none !important; }
+
+  /* Cuarta tarjeta: fotos de recuerdo que van cambiando */
+  .marco-fotos { position: relative; background: #000; overflow: hidden; }
+  .marco-fotos .sin-fotos { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .foto-menu { position: absolute; inset: 6%; width: 88%; height: 88%; object-fit: cover; opacity: 0; transition: opacity .8s; transform: rotate(-2deg);
+    border: 6px solid #fff; border-bottom-width: 18px; background: #fff; }
+  .foto-menu.b { transform: rotate(2deg); }
+  .foto-menu.ver { opacity: 1; }
+  .marco-fotos.con-fotos .sin-fotos { opacity: .15; }
+  @media (orientation: landscape) { .juegos { width: min(1820px, 100%) !important; gap: clamp(12px, 2vw, 40px) !important; }
+    .juego { flex: 1 1 0 !important; min-width: 0; } .nombre-juego { font-size: clamp(20px, min(4.6vh, 2.15vw), 64px) !important; } }
+  @media (orientation: portrait) {
+    .juego .dibujo { max-height: 11vh !important; }
+    .juego { padding-top: clamp(8px, 1.4vh, 20px) !important; padding-bottom: clamp(8px, 1.4vh, 20px) !important; }
+    .pagina { gap: clamp(8px, 1.6vh, 24px) !important; }
+  }
 </style>
 </head>
 <body>
@@ -241,6 +270,25 @@
         <div class="desc">Recoge los tornillos<br>y esquiva las herramientas.</div>
         <div class="record" data-record>Sin récord todavía</div>
         <div class="jugar">▶ Jugar</div>
+      </div>
+    </a>
+
+    <a class="juego juego-recuerdo" href="recuerdo.html">
+      <div class="dibujo marco-fotos" id="marco-fotos">
+        <svg class="sin-fotos" viewBox="0 0 400 300" aria-hidden="true" shape-rendering="crispEdges">
+          <rect x="70" y="80" width="260" height="170" fill="#3a0000"/><rect x="70" y="72" width="260" height="170" fill="#c00000"/>
+          <rect x="70" y="72" width="260" height="8" fill="#ff5050"/><rect x="150" y="44" width="100" height="36" fill="#c00000"/><rect x="150" y="44" width="100" height="8" fill="#ff5050"/>
+          <rect x="280" y="92" width="30" height="16" fill="#ffd34d"/>
+          <circle cx="200" cy="157" r="62" fill="#1a0000"/><circle cx="200" cy="157" r="50" fill="#d3d8dc"/><circle cx="200" cy="157" r="34" fill="#0a0a0a"/>
+          <rect x="180" y="134" width="12" height="12" fill="#ffffff"/>
+        </svg>
+        <img class="foto-menu a" alt=""><img class="foto-menu b" alt="">
+      </div>
+      <div class="info">
+        <div class="nombre-juego">Recuerdo</div>
+        <div class="desc">Hazte una foto con el marco<br>de la tienda y llévatela.</div>
+        <div class="record" id="record-fotos">📸 ¡Hazte una foto!</div>
+        <div class="jugar">📸 Foto</div>
       </div>
     </a>
   </div>
@@ -416,6 +464,93 @@ document.getElementById("pantalla-completa").onclick = () => {
     if (id === "guardar") setTimeout(sincronizar, 800);
     if (id === "ver-ranking") setTimeout(sincronizar, 100);
   }, true);
+})();
+</script>
+
+<script>
+/* =====================================================
+   FOTOS DEL RECUERDO: envío a Google (con cola si no hay internet)
+   Usa la misma dirección que el ranking (config-google.js).
+   ===================================================== */
+const fotosGoogle = (function () {
+  const COLA = "fotosPendientes", CACHE = "fotosRecuerdo";
+  const leer = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+  const escribir = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
+  function direccion() {
+    const u = (window.COPIA_GOOGLE_URL || "").trim();
+    if (u) return u;
+    try { return localStorage.getItem("copiaGoogleURL") || ""; } catch (e) { return ""; }
+  }
+  const clave = () => window.COPIA_GOOGLE_CLAVE || "ferreteria-vert";
+  async function subir(foto) {
+    if (!direccion()) throw new Error("sin configurar");
+    const r = await fetch(direccion(), { method: "POST", body: JSON.stringify(Object.assign({ accion: "foto", clave: clave() }, foto)) });
+    const j = await r.json();
+    if (!j || !j.ok) throw new Error((j && j.error) || "respuesta rara");
+    return j;
+  }
+  /* Envía una foto; si falla, la deja en cola (máximo 6) para reintentarla */
+  async function enviar(foto) {
+    try { return await subir(foto); }
+    catch (e) {
+      let cola = leer(COLA, []).filter(f => f.id !== foto.id);
+      cola.push(foto);
+      while (cola.length > 6 || (!escribir(COLA, cola) && cola.length > 1)) cola.shift();
+      throw e;
+    }
+  }
+  let ocupado = false;
+  async function reintentar() {
+    if (ocupado || !direccion() || navigator.onLine === false) return;
+    ocupado = true;
+    try {
+      for (const f of leer(COLA, [])) {
+        await subir(f);
+        escribir(COLA, leer(COLA, []).filter(x => x.id !== f.id));
+      }
+    } catch (e) {}
+    ocupado = false;
+  }
+  /* Fotos para el menú (solo las que tienen permiso para salir en pantalla) */
+  async function alAzar(n = 12) {
+    if (!direccion()) return leer(CACHE, []);
+    try {
+      const u = direccion() + (direccion().includes("?") ? "&" : "?") + "accion=fotos&n=" + n + "&clave=" + encodeURIComponent(clave());
+      const j = await (await fetch(u)).json();
+      if (j && j.ok) { escribir(CACHE, j.fotos || []); return j.fotos || []; }
+    } catch (e) {}
+    return leer(CACHE, []);
+  }
+  setTimeout(reintentar, 4000);
+  setInterval(reintentar, 90 * 1000);
+  window.addEventListener("online", reintentar);
+  return { enviar, reintentar, alAzar, pendientes: () => leer(COLA, []).length, guardadas: () => leer(CACHE, []) };
+})();
+
+/* Fotos de recuerdo al azar en la cuarta tarjeta */
+(function () {
+  const marco = document.getElementById("marco-fotos"), imgs = [...marco.querySelectorAll(".foto-menu")];
+  let fotos = fotosGoogle.guardadas(), turno = 0, ultima = -1;
+  function siguiente() {
+    if (!fotos.length) { marco.classList.remove("con-fotos"); return; }
+    marco.classList.add("con-fotos");
+    let k = Math.floor(Math.random() * fotos.length);
+    if (fotos.length > 1 && k === ultima) k = (k + 1) % fotos.length;
+    ultima = k;
+    const nueva = imgs[turno % 2], vieja = imgs[(turno + 1) % 2]; turno++;
+    nueva.onload = () => { nueva.classList.add("ver"); vieja.classList.remove("ver"); };
+    nueva.src = fotos[k].img;
+  }
+  async function cargar() {
+    fotos = await fotosGoogle.alAzar(12);
+    const r = document.getElementById("record-fotos");
+    r.textContent = fotos.length ? "📸 ¡Sal en la pantalla!" : "📸 ¡Hazte una foto!";
+    siguiente();
+  }
+  siguiente();
+  setTimeout(cargar, 2000);
+  setInterval(cargar, 5 * 60 * 1000);
+  setInterval(siguiente, 4500);
 })();
 </script>
 </body>
