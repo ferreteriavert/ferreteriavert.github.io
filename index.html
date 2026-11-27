@@ -172,6 +172,32 @@
   @media (orientation: portrait) {
     .juego-recuerdo .marco-fotos { width: 36% !important; }
   }
+
+  /* Cinco tarjetas */
+  @media (orientation: landscape) {
+    .juegos { width: min(1880px, 100%) !important; gap: clamp(10px, 1.4vw, 30px) !important; }
+    .nombre-juego { font-size: clamp(18px, min(4.2vh, 1.75vw), 60px) !important; }
+    .desc { font-size: clamp(12px, min(2vh, 1.05vw), 26px) !important; }
+    .jugar { font-size: clamp(16px, min(3.4vh, 1.8vw), 46px) !important; }
+    .record { font-size: clamp(11px, min(1.8vh, .95vw), 24px) !important; }
+    .juego-recuerdo .marco-fotos { width: min(100%, calc(22vh * 4 / 3)) !important; }
+  }
+  @media (orientation: portrait) {
+    /* en vertical: dos columnas y el Recuerdo a lo ancho */
+    .juegos { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(10px, 1.6vh, 24px) !important; width: 100% !important; }
+    .juego { flex-direction: column !important; max-width: none !important; width: auto !important; min-width: 0; text-align: center !important; gap: clamp(4px, .8vh, 12px) !important; padding: clamp(8px, 1.2vh, 18px) !important; }
+    .info .jugar { font-size: clamp(16px, 2.4vh, 40px) !important; padding: clamp(6px, 1vh, 16px) !important; }
+    .info .record { font-size: clamp(11px, 1.3vh, 22px) !important; }
+    .juego .dibujo { width: 100% !important; max-height: 10vh !important; height: 10vh !important; }
+    .juego .info { align-items: center !important; width: 100%; margin-left: 0 !important; }
+    .juego .desc { display: block !important; font-size: clamp(11px, 1.4vh, 24px) !important; }
+    .info .nombre-juego { font-size: clamp(16px, min(2.6vh, 4.6vw), 52px) !important; white-space: nowrap; }
+    .titulo { font-size: clamp(26px, min(4.4vh, 8vw), 80px) !important; }
+    .juego-recuerdo { grid-column: 1 / -1; flex-direction: row !important; align-items: center !important; }
+    .juego-recuerdo .marco-fotos { width: 46% !important; height: auto !important; max-height: none !important; }
+    .juego-recuerdo .info { padding-top: 0 !important; background: none !important; }
+    .logo { height: 7vh !important; }
+  }
 </style>
 </head>
 <body>
@@ -286,6 +312,27 @@
       </div>
     </a>
 
+    <a class="juego" href="airhockey-ferreteria.html" data-partidas="airhockeyPartidas">
+      <svg class="dibujo" viewBox="0 0 400 300" aria-hidden="true" shape-rendering="crispEdges">
+        <rect x="20" y="40" width="360" height="220" fill="#3a0000"/>
+        <rect x="26" y="46" width="348" height="208" fill="#120000"/>
+        <rect x="26" y="46" width="174" height="208" fill="#2a0000"/><rect x="200" y="46" width="174" height="208" fill="#2a2000"/>
+        <rect x="198" y="46" width="4" height="208" fill="#ffffff" opacity=".4"/>
+        <rect x="20" y="110" width="8" height="80" fill="#000"/><rect x="372" y="110" width="8" height="80" fill="#000"/>
+        <rect x="26" y="110" width="4" height="80" fill="#ff2a2a"/><rect x="370" y="110" width="4" height="80" fill="#ffd34d"/>
+        <circle cx="200" cy="150" r="40" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="4"/>
+        <circle cx="100" cy="156" r="30" fill="#7a0000"/><circle cx="100" cy="150" r="30" fill="#ff2a2a"/><circle cx="100" cy="150" r="13" fill="#ff8a8a"/>
+        <circle cx="310" cy="136" r="30" fill="#7a5a00"/><circle cx="310" cy="130" r="30" fill="#ffd34d"/><circle cx="310" cy="130" r="13" fill="#fff1b0"/>
+        <circle cx="236" cy="178" r="15" fill="#6d7378"/><circle cx="234" cy="175" r="15" fill="#d3d8dc"/><circle cx="234" cy="175" r="6" fill="#111"/>
+        <rect x="200" y="176" width="10" height="6" fill="#ff5050" opacity=".6"/><rect x="186" y="178" width="8" height="5" fill="#ff5050" opacity=".35"/>
+      </svg>
+      <div class="info">
+        <div class="nombre-juego">Air hockey</div>
+        <div class="desc">Para 2 jugadores:<br>uno a cada lado de la pantalla.</div>
+        <div class="record" data-record-air>👥 2 jugadores</div>
+        <div class="jugar">▶ Jugar</div>
+      </div>
+    </a>
     <a class="juego juego-recuerdo" href="recuerdo.html#foto">
       <div class="dibujo marco-fotos" id="marco-fotos">
         <svg class="sin-fotos" viewBox="0 0 400 300" aria-hidden="true" shape-rendering="crispEdges">
@@ -586,6 +633,11 @@ const fotosGoogle = (function () {
   document.addEventListener("fotos-subidas", cargar);
   setInterval(siguiente, 4500);
 })();
+</script>
+
+<script>
+/* Partidas de air hockey jugadas en esta pantalla */
+(function () { try { const n = Number(localStorage.getItem("airhockeyPartidas")) || 0; if (n) document.querySelector("[data-record-air]").textContent = "👥 " + n + (n === 1 ? " partida jugada" : " partidas jugadas"); } catch (e) {} })();
 </script>
 </body>
 </html>
