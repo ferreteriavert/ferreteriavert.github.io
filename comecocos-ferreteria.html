@@ -390,7 +390,6 @@
       <div class="mesa-base" id="mesa-base"></div>
       <div class="mesa" id="mesa">
         <canvas id="lienzo"></canvas>
-        <div class="cristal"></div>
         <div id="banner"><div class="b1" id="banner1"></div><div class="b2" id="banner2"></div></div>
       </div>
     </div>
@@ -638,12 +637,14 @@ document.querySelectorAll("#cruz button").forEach(b => {
   b.addEventListener("pointerdown", e => { e.preventDefault(); b.classList.add("pulsado"); querer(b.dataset.dir); });
   ["pointerup", "pointerleave", "pointercancel"].forEach(ev => b.addEventListener(ev, () => b.classList.remove("pulsado")));
 });
+/* El dedo se lee en cuanto el sistema lo detecta (pointerrawupdate), sin esperar al siguiente fotograma */
+const EVENTO_MOVER = "onpointerrawupdate" in window ? "pointerrawupdate" : "pointermove";
 let arrastre = null;
-$("#lienzo").addEventListener("pointerdown", e => { iniciarAudio(); arrastre = { x: e.clientX, y: e.clientY }; });
-$("#lienzo").addEventListener("pointermove", e => {
+$("#lienzo").addEventListener("pointerdown", e => { iniciarAudio(); arrastre = { x: e.clientX, y: e.clientY }; try { e.target.setPointerCapture(e.pointerId); } catch (x) {} });
+$("#lienzo").addEventListener(EVENTO_MOVER, e => {
   if (!arrastre) return;
   const dx = e.clientX - arrastre.x, dy = e.clientY - arrastre.y;
-  if (Math.hypot(dx, dy) < 22) return;
+  if (Math.hypot(dx, dy) < 12) return;          // basta un deslizamiento corto
   querer(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "derecha" : "izquierda") : (dy > 0 ? "abajo" : "arriba"));
   arrastre = { x: e.clientX, y: e.clientY };
 });
@@ -866,7 +867,7 @@ function actualizar(dt) {
 /* =====================================================
    DIBUJO 2.5D
    ===================================================== */
-const lienzo = $("#lienzo"), ctx = lienzo.getContext("2d");
+const lienzo = $("#lienzo"), ctx = lienzo.getContext("2d", { desynchronized: true, alpha: false });   // lienzo de baja latencia
 let estatico = null, escala = 1, dpr = 1;
 
 function hex(c, x, y, r, rot = 0) {
@@ -941,8 +942,8 @@ function ajustar() {
   const bh = cw * ASP + 2 * B;
   mesa.style.width = (cw + 2 * B) + "px";
   mesa.style.height = bh + "px";
-  hueco.style.perspective = (2.6 * Math.max(bh, cw * .75)) + "px";
-  mesa.style.transform = `translate(-50%, calc(-50% - ${(0.025 * bh).toFixed(1)}px)) rotateX(14deg)`;
+  hueco.style.perspective = "none";
+  mesa.style.transform = "translate(-50%, -50%)";     // tablero plano: responde antes al dedo (el volumen va dibujado)
   const base = $("#mesa-base");
   base.style.width = mesa.style.width; base.style.height = mesa.style.height; base.style.transform = mesa.style.transform;
   pintarBase(base, parseFloat(mesa.style.width), parseFloat(mesa.style.height));

@@ -447,7 +447,10 @@ function banner(t1, t2) {
 }
 
 /* ---------- Dedos: cada uno controla el mazo de su mitad (multitoque) ---------- */
-const lienzo = $("#lienzo"), ctx = lienzo.getContext("2d");
+const lienzo = $("#lienzo"), ctx = lienzo.getContext("2d", { desynchronized: true, alpha: false });   // lienzo de baja latencia
+/* El dedo se lee en cuanto el sistema lo detecta (pointerrawupdate), sin esperar al siguiente fotograma */
+const EVENTO_MOVER = "onpointerrawupdate" in window ? "pointerrawupdate" : "pointermove";
+
 function aMesa(e) {
   const r = lienzo.getBoundingClientRect();
   const u = (e.clientX - r.left) / r.width, v = (e.clientY - r.top) / r.height;
@@ -461,10 +464,14 @@ lienzo.addEventListener("pointerdown", e => {
   G.mazos[j].dedo = e.pointerId; G.mazos[j].objetivo = p;
   try { lienzo.setPointerCapture(e.pointerId); } catch (x) {}
 });
-lienzo.addEventListener("pointermove", e => {
+lienzo.addEventListener(EVENTO_MOVER, e => {
   if (!G) return;
   const m = G.mazos.find(m => m.dedo === e.pointerId);
-  if (m) m.objetivo = aMesa(e);
+  if (!m) return;
+  // posición real + un poco de la posición que el sistema predice (compensa el retardo de la pantalla)
+  const a = aMesa(e), pred = e.getPredictedEvents ? e.getPredictedEvents() : [];
+  if (pred.length) { const b = aMesa(pred[pred.length - 1]); m.objetivo = { x: a.x + (b.x - a.x) * .6, y: a.y + (b.y - a.y) * .6 }; }
+  else m.objetivo = a;
 });
 ["pointerup", "pointercancel"].forEach(ev => lienzo.addEventListener(ev, e => {
   if (!G) return;
